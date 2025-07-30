@@ -1,14 +1,43 @@
-import { Link, useLocation } from "react-router-dom"
 import { useState, useEffect } from "react"
 
 export default function Navbar() {
-	const location = useLocation();
 	
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
+	const [activeSection, setActiveSection] = useState('home');
 
 	const toggleMenu = () => {
 		setIsMenuOpen(!isMenuOpen);
 	}
+
+	const scrollToSection = (sectionId) => {
+		document.getElementById(sectionId)?.scrollIntoView({
+			behavior: 'smooth'
+		});
+		setIsMenuOpen(false);
+	}
+
+	// Track active section based on scroll position
+	useEffect(() => {
+		const handleScroll = () => {
+			const sections = ['home', 'projects', 'skills', 'about', 'contact'];
+			const scrollPosition = window.scrollY + window.innerHeight / 3;
+
+			for (const section of sections) {
+				const element = document.getElementById(section);
+				if (element) {
+					const { offsetTop, offsetHeight } = element;
+					if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+						setActiveSection(section);
+						break;
+					}
+				}
+			}
+		};
+
+		window.addEventListener('scroll', handleScroll);
+		handleScroll(); // Check initial position
+		return () => window.removeEventListener('scroll', handleScroll);
+	}, []);
 
 	// Handle keyboard navigation
 	useEffect(() => {
@@ -63,11 +92,11 @@ export default function Navbar() {
 
 					<nav className="hidden md:block ml-15">
 						<ul className="flex flex-row space-x-4 ml-3 mr-6 text-2xl">
-							<li><Link to="/" className={`hover:text-green-400 transition-colors ${location.pathname === '/' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>home</Link></li>
-							<li><Link to="/about" className={`hover:text-green-400 transition-colors ${location.pathname === '/about' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>about</Link></li>
-							<li><Link to="/skills" className={`hover:text-green-400 transition-colors ${location.pathname === '/skills' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>skills</Link></li>
-							<li><Link to="/projects" className={`hover:text-green-400 transition-colors ${location.pathname === '/projects' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>projects</Link></li>
-							<li><Link to="/contact" className={`hover:text-green-400 transition-colors ${location.pathname === '/contact' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>contact-me</Link></li>
+							<li><button onClick={() => scrollToSection('home')} className={`hover:text-green-400 transition-colors ${activeSection === 'home' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>home</button></li>
+							<li><button onClick={() => scrollToSection('about')} className={`hover:text-green-400 transition-colors ${activeSection === 'about' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>about</button></li>
+							<li><button onClick={() => scrollToSection('skills')} className={`hover:text-green-400 transition-colors ${activeSection === 'skills' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>skills</button></li>
+							<li><button onClick={() => scrollToSection('projects')} className={`hover:text-green-400 transition-colors ${activeSection === 'projects' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>projects</button></li>
+							<li><button onClick={() => scrollToSection('contact')} className={`hover:text-green-400 transition-colors ${activeSection === 'contact' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>contact-me</button></li>
 						</ul>
 					</nav>
 
@@ -97,11 +126,11 @@ export default function Navbar() {
 							</button>
 							<nav className="px-4 py-2 text-center">
 								<ul className="flex flex-col space-y-8 text-2xl">
-									<li><Link to="/" onClick={toggleMenu} className={`hover:text-green-500 transition-colors ${location.pathname === '/' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>home</Link></li>
-									<li><Link to="/about" onClick={toggleMenu} className={`hover:text-green-500 transition-colors ${location.pathname === '/about' ? 'text-green-500': ''}`}> <span className="text-gray-200">#</span>about</Link></li>
-									<li><Link to="/skills" onClick={toggleMenu} className={`hover:text-green-500 transition-colors ${location.pathname === '/skills' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>skills</Link></li>
-									<li><Link to="/projects" onClick={toggleMenu} className={`hover:text-green-500 transition-colors ${location.pathname === '/projects' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>projects</Link></li>
-									<li><Link to="/contact" onClick={toggleMenu} className={`hover:text-green-500 transition-colors ${location.pathname === '/contact' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>contact-me</Link></li>
+									<li><button   onClick={() => scrollToSection('home')} className={`hover:text-green-500 transition-colors ${activeSection === 'home' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>home</button></li>
+									<li><button   onClick={() => scrollToSection('about')} className={`hover:text-green-500 transition-colors ${activeSection === 'about' ? 'text-green-500': ''}`}> <span className="text-gray-200">#</span>about</button></li>
+									<li><button   onClick={() => scrollToSection('skills')} className={`hover:text-green-500 transition-colors ${activeSection === 'skills' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>skills</button></li>
+									<li><button   onClick={() => scrollToSection('projects')} className={`hover:text-green-500 transition-colors ${activeSection === 'projects' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>projects</button></li>
+									<li><button   onClick={() => scrollToSection('contact')} className={`hover:text-green-500 transition-colors ${activeSection === 'contact' ? 'text-green-500': ''}`}><span className="text-gray-200">#</span>contact-me</button></li>
 								</ul>
 
 								 {/* Social Media Icons in Mobile Menu */}

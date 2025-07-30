@@ -1,6 +1,7 @@
 import Navbar from "@/components/navbar";
 
 export default function Projects() {
+	
 	const projects = [
 		{
 			id: 1,
@@ -86,34 +87,33 @@ export default function Projects() {
 
 	return (
 		<>
-			<Navbar />
-			<section className="max-w-fit md:px-40 pt-0 pb-4 md:-mt-20 ml-4 ">
+			<section id="projects" className="max-w-full px-4 sm:px-8 md:px-16 lg:px-40 pb-8 md:pb-4 mt-12 md:mt-20 relative overflow-hidden">
 				
 				{/* Header */}
-				<div className="mb-6">
-					<h1 className="text-4xl mb-4">
+				<div className="mb-8 text-center md:text-left">
+					<h1 className="text-3xl sm:text-4xl mb-4">
 						<span className="text-gray-50"># </span>
 						<span className="text-green-500">projects</span>
 					</h1>
-					<p className="text-gray-500 text-lg">
+					<p className="text-gray-500 text-base sm:text-lg">
 						{">"} List of my coding projects and contributions
 					</p>
-					<div className="mt-4 w-32 h-px bg-green-500"></div>
+					<div className="mt-4 w-32 h-px bg-green-500 mx-auto md:mx-0"></div>
 				</div>
 
 				{/* Projects Grid */}
-				<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				<div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
 					{projects.map((project) => (
-						<div key={project.id} className="bg-black border-2 border-green-500/30 hover:border-green-500/60 transition-all duration-300 group">
+						<div key={project.id} className="bg-black border-2 border-green-500/30 hover:border-green-500/60 transition-all duration-300 group w-full">
 							{/* Terminal Header */}
-							<div className="bg-green-500/10 border-b border-green-500/30 px-4 py-2 flex items-center justify-between">
+							<div className="bg-green-500/10 border-b border-green-500/30 px-3 sm:px-4 py-2 flex items-center justify-between">
 								<div className="flex items-center space-x-2">
 									<div className="flex space-x-1">
 										<div className="w-2 h-2 bg-red-500 rounded-full"></div>
 										<div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
 										<div className="w-2 h-2 bg-green-500 rounded-full"></div>
 									</div>
-									<span className="text-xs text-green-500 font-mono">project_{project.id}.exe</span>
+									<span className="text-xs text-green-500 font-mono truncate">project_{project.id}.exe</span>
 								</div>
 								<span className={`text-xs font-mono ${getStatusColor(project.status)}`}>
 									{getStatusIcon(project.status)} {project.status}
@@ -121,8 +121,8 @@ export default function Projects() {
 							</div>
 
 							{/* Project Content */}
-							<div className="p-4">
-								<h3 className="text-xl text-green-500 font-mono mb-3 group-hover:text-green-400 transition-colors">
+							<div className="p-3 sm:p-4">
+								<h3 className="text-lg sm:text-xl text-green-500 font-mono mb-3 group-hover:text-green-400 transition-colors">
 									{project.title}
 								</h3>
 								
@@ -133,7 +133,7 @@ export default function Projects() {
 								{/* Technologies */}
 								<div className="mb-4">
 									<div className="text-xs text-green-500/70 mb-2 font-mono">{">"} Technologies:</div>
-									<div className="flex flex-wrap gap-2">
+									<div className="flex flex-wrap gap-1 sm:gap-2">
 										{project.technologies.map((tech, index) => (
 											<span 
 												key={index}
@@ -146,7 +146,7 @@ export default function Projects() {
 								</div>
 
 								{/* Links */}
-								<div className="flex space-x-4 mt-6">
+								<div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 mt-6">
 									<a 
 										href={project.githubUrl}
 										target="_blank"
@@ -184,15 +184,15 @@ export default function Projects() {
 				</div>
 
 				{/* Bottom Section */}
-				<div className="mt-16 text-center">
-					<div className="inline-block bg-green-500/10 border border-green-500/30 px-6 py-4">
-						<div className="text-green-500 font-mono mb-2">{">"} Want to collaborate?</div>
-						<p className="text-gray-400 text-sm mb-4">
+				<div className="mt-12 sm:mt-16 text-center">
+					<div className="inline-block bg-green-500/10 border border-green-500/30 px-4 sm:px-6 py-4 max-w-full">
+						<div className="text-green-500 font-mono mb-2 text-sm sm:text-base">{">"} Want to collaborate?</div>
+						<p className="text-gray-400 text-xs sm:text-sm mb-4">
 							I'm always open to interesting projects and opportunities
 						</p>
 						<a 
 							href="mailto:your.email@example.com"
-							className="inline-flex items-center space-x-2 bg-green-500/20 border border-green-500 px-4 py-2 text-green-500 hover:bg-green-500/30 transition-colors font-mono text-sm"
+							className="inline-flex items-center space-x-2 bg-green-500/20 border border-green-500 px-3 sm:px-4 py-2 text-green-500 hover:bg-green-500/30 transition-colors font-mono text-xs sm:text-sm"
 						>
 							<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
 								<path d="M24 5.457v13.909c0 .904-.732 1.636-1.636 1.636h-3.819V11.73L12 16.64l-6.545-4.91v9.273H1.636A1.636 1.636 0 0 1 0 19.366V5.457c0-.904.732-1.636 1.636-1.636h3.819l6.545 4.91 6.545-4.91h3.819A1.636 1.636 0 0 1 24 5.457z"/>
@@ -202,8 +202,8 @@ export default function Projects() {
 					</div>
 				</div>
 
-				{/* Hacker-style decorative elements */}
-				<div className="fixed bottom-8 right-8 text-green-500/20 font-mono text-xs pointer-events-none">
+				{/* Hacker-style decorative elements - Hidden on mobile */}
+				<div className="fixed bottom-8 right-8 text-green-500/20 font-mono text-xs pointer-events-none hidden md:block">
 					<div className="animate-pulse">
 						{">"} projects.length: {projects.length}
 					</div>
